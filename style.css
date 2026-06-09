@@ -1,0 +1,377 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+  background: #0b0b14;
+}
+
+/* 🌅 SKY */
+.sky {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  background: linear-gradient(
+    180deg,
+    #ffd1b3 0%,
+    #ff8aa0 35%,
+    #7b4b9a 70%,
+    #15162b 100%
+  );
+
+  animation: skyBreath 16s ease-in-out infinite alternate;
+}
+
+@keyframes skyBreath {
+  0% { filter: brightness(1) saturate(1); }
+  100% { filter: brightness(1.08) saturate(1.1); }
+}
+
+/* 🌞 SUN (soft + atmospheric, not a “ball”) */
+.sun {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+
+  left: 50%;
+  bottom: 22%;
+  transform: translateX(-50%);
+
+  background: radial-gradient(
+    circle,
+    #fff7d6 0%,
+    #ffd08a 25%,
+    rgba(255, 140, 120, 0.55) 55%,
+    transparent 75%
+  );
+
+  border-radius: 55% 45% 60% 40% / 50% 60% 40% 50%;
+
+  filter: blur(4px);
+  opacity: 0.95;
+
+  animation: sunFloat 14s ease-in-out infinite alternate;
+}
+
+@keyframes sunFloat {
+  0% { transform: translateX(-50%) translateY(0px); }
+  100% { transform: translateX(-50%) translateY(-18px); }
+}
+
+/* 🌫️ HAZE (romantic atmosphere glue) */
+.haze {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  background: radial-gradient(
+    circle at 50% 60%,
+    rgba(255, 190, 170, 0.25),
+    transparent 65%
+  );
+
+  mix-blend-mode: soft-light;
+}
+
+/* 🌄 LIGHT LAYER (fixes “flat sunset” problem) */
+.light {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  background: radial-gradient(
+    circle at 50% 55%,
+    rgba(255, 220, 180, 0.18),
+    transparent 60%
+  );
+
+  pointer-events: none;
+}
+
+/* 🏔️ HILLS (simple silhouette depth) */
+.hills {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 35%;
+
+  background: linear-gradient(
+    to top,
+    rgba(10,10,20,0.98),
+    transparent
+  );
+}
+
+/* 🌸 PETALS */
+.petal {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+
+  background: rgba(255, 220, 235, 0.75);
+  border-radius: 60% 40% 60% 40%;
+
+  filter: blur(0.6px);
+  opacity: 0;
+
+  animation: drift linear forwards;
+}
+
+@keyframes drift {
+  0% {
+    transform: translateX(-10vw) translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  100% {
+    transform: translateX(110vw) translateY(-80px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* 💬 UI */
+/* 💬 UI (UPGRADED — more romantic, more presence) */
+.ui {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  color: white;
+
+  z-index: 10;
+  padding: 20px;
+
+  /* highest layer */
+  z-index: 10;
+}
+
+/* MAIN NAME */
+.ui h1 {
+  font-size: 3.6rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+
+  text-shadow:
+    0 0 25px rgba(255, 200, 170, 0.35),
+    0 0 60px rgba(255, 150, 140, 0.15);
+
+  animation: fadeUp 2s ease-out;
+}
+
+/* SUBTEXT */
+.ui p {
+  margin-top: 14px;
+  font-size: 1.2rem;
+  opacity: 0.9;
+
+  letter-spacing: 1px;
+
+  animation: fadeUp 2.5s ease-out;
+}
+
+/* 💖 BUTTON (less transparent, more “presence”) */
+.ui button {
+  margin-top: 32px;
+  padding: 14px 34px;
+
+  border: none;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+
+  backdrop-filter: blur(16px);
+
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.25),
+    0 0 25px rgba(255, 180, 150, 0.15);
+
+  transition: all 0.35s ease;
+
+  animation: fadeUp 3s ease-out;
+}
+
+/* hover = feels like it “comes alive” */
+.ui button:hover {
+  transform: scale(1.07);
+  background: rgba(255, 255, 255, 0.38);
+  box-shadow:
+    0 12px 35px rgba(0,0,0,0.3),
+    0 0 35px rgba(255, 190, 160, 0.25);
+}
+.landing, .world {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+}
+
+.world {
+  position: fixed;
+  inset: 0;
+  z-index: 9;
+  opacity: 0;
+  pointer-events: none;
+  overflow-y: auto;
+  transition: 1.5s ease;
+}
+
+.world.show {
+  opacity: 1;
+  pointer-events: all;
+}
+.landing.fade-out {
+  opacity: 0;
+  transform: scale(1.05);
+  transition: 1.5s ease;
+}
+#petal-container {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.world-content {
+  position: relative;
+  z-index: 10;
+}
+.petal {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+
+  background: rgba(255, 220, 235, 0.85);
+  border-radius: 60% 40%;
+
+  opacity: 0;
+
+  animation: petalFall linear forwards;
+}
+
+@keyframes petalFall {
+  0% {
+    transform: translateY(-10vh) translateX(0);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(110vh) translateX(80px);
+    opacity: 0;
+  }
+}
+.petal.fade-out {
+  opacity: 0 !important;
+  transition: opacity 0.4s ease;
+}
+.world {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  opacity: 0;
+  pointer-events: none;
+  transition: 1.5s ease;
+}
+
+.world.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* 🌍 content layer */
+.world-content {
+  position: relative;
+  z-index: 10;
+  padding: 120px 20px;
+  max-width: 900px;
+  margin: auto;
+  color: white;
+}
+
+/* title */
+.title {
+  text-align: center;
+  font-size: 2.8rem;
+  margin-bottom: 80px;
+  letter-spacing: 2px;
+}
+
+/* memory cards */
+.memory {
+  margin-bottom: 80px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 20px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+
+  transform: translateY(40px);
+  opacity: 0;
+  transition: all 1s ease;
+}
+
+.memory img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.memory .text {
+  padding: 20px;
+}
+
+.memory.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.landing {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+}
+#transition {
+  position: fixed;
+  inset: 0;
+  background: black;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+
+  transition: opacity 1.8s ease-in-out; /* slower + smoother */
+}
+
+#transition.active {
+  opacity: 1;
+}
+.world-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35); /* 👈 adjust darkness here */
+  z-index: 3;
+  pointer-events: none;
+}
