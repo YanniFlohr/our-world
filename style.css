@@ -225,10 +225,15 @@ body {
 .world {
   position: fixed;
   inset: 0;
-  z-index: 9;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  max-height: 100vh;
+
   opacity: 0;
   pointer-events: none;
-  overflow-y: auto;
+
   transition: 1.5s ease;
 }
 
@@ -374,4 +379,552 @@ body {
   background: rgba(0, 0, 0, 0.35); /* 👈 adjust darkness here */
   z-index: 3;
   pointer-events: none;
+}
+.memory.divider {
+  background: rgba(255,255,255,0.03);
+  text-align: center;
+  padding: 40px 20px;
+  font-style: italic;
+}
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 80px 0;
+  position: relative;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.divider span {
+  padding: 0 20px;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+.final-card {
+  margin-top: 120px;
+  margin-bottom: 140px;
+
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+
+  text-align: center;
+}
+
+.final-card p {
+  margin-bottom: 20px;
+  line-height: 1.9;
+}
+
+.final-quote {
+  font-size: 1.4rem;
+  font-weight: 300;
+  line-height: 2;
+  margin: 40px 0;
+}
+
+.signature {
+  margin-top: 50px;
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+.memory {
+  margin-bottom: 100px;
+
+  padding: 20px 10px;
+
+  background: rgba(255,255,255,0.06);
+  border-radius: 24px;
+
+  backdrop-filter: blur(12px);
+}
+
+.memory .text {
+  padding: 40px;
+}
+
+.memory h3 {
+  font-size: 2rem;
+  margin-bottom: 24px;
+
+  letter-spacing: 1px;
+}
+
+.memory p {
+  font-size: 1.15rem;
+
+  line-height: 2;
+
+  color: rgba(255,255,255,0.92);
+}
+.title {
+  font-size: 4rem;
+  margin-bottom: 120px;
+}
+/* =========================
+   ⭐ FINAL ENDING
+========================= */
+
+.star {
+  font-size: 2rem;
+
+  margin-top: 50px;
+
+  animation: starFloat 4s ease-in-out infinite;
+}
+
+@keyframes starFloat {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.stars {
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, white, transparent),
+    radial-gradient(1px 1px at 60% 20%, white, transparent),
+    radial-gradient(2px 2px at 80% 70%, white, transparent),
+    radial-gradient(1px 1px at 30% 80%, white, transparent),
+    radial-gradient(2px 2px at 90% 40%, white, transparent);
+
+  opacity: 0.7;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #000; /* hard safety base */
+}
+
+/* FORCE all full-screen layers to truly cover */
+.background,
+.sky,
+.haze,
+.light,
+.hills {
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Make ending fully override everything */
+
+/* when ending becomes active, darken everything behind */
+
+
+@keyframes endingIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.stars {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1px 1px at 10% 20%, white, transparent),
+    radial-gradient(1px 1px at 30% 80%, white, transparent),
+    radial-gradient(2px 2px at 70% 40%, white, transparent),
+    radial-gradient(1px 1px at 90% 60%, white, transparent);
+
+  opacity: 0.8;
+  animation: twinkle 6s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.6; }
+  to { opacity: 1; }
+}
+
+.world {
+  max-height: 100vh;
+  overflow-y: auto;
+  overscroll-behavior: none;
+}
+.world-content {
+  padding-bottom: 200px;
+}
+
+
+/* =========================
+   ⭐ FINAL ENDING (CLEAN FIX)
+========================= */
+
+
+/* stars stay inside only */
+.stars {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1px 1px at 10% 20%, white, transparent),
+    radial-gradient(1px 1px at 30% 80%, white, transparent),
+    radial-gradient(2px 2px at 70% 40%, white, transparent),
+    radial-gradient(1px 1px at 90% 60%, white, transparent);
+
+  opacity: 0.8;
+  animation: twinkle 6s ease-in-out infinite alternate;
+}
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden; /* IMPORTANT: stops infinite scroll */
+}
+.background {
+  background: #000; /* prevents bleed-through */
+}
+body {
+  background: #000;
+}
+
+@keyframes endingFade {
+  to {
+    opacity: 1;
+  }
+}
+
+.world {
+  height: 100vh;
+  overflow-y: auto;
+  overscroll-behavior: none;
+}
+
+.world-content {
+  padding-bottom: 80px; /* reduce huge empty space */
+}
+.world::after {
+  display: none;
+}
+
+/* =========================
+   🚨 FINAL OVERRIDE FIX (ENDING + GRADIENT)
+   DO NOT REMOVE ANYTHING ABOVE
+========================= */
+
+/* Force correct ending gradient */
+
+
+/* THIS is the actual visible gradient layer */
+
+
+
+/* stop ANY body rules from breaking scroll */
+html, body {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+/* ensure world scroll still works properly */
+.world {
+  overflow-y: auto !important;
+  max-height: 100vh !important;
+}
+/* =========================
+   🌍 BASE RESET
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  background: #000;
+}
+
+/* IMPORTANT: allow scroll ONLY inside world */
+body {
+  overflow-y: hidden;
+}
+
+/* =========================
+   🌅 BACKGROUND SAFETY
+========================= */
+
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: #000;
+}
+
+.sky,
+.haze,
+.light,
+.hills {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* =========================
+   🌍 WORLD
+========================= */
+
+.world {
+  position: fixed;
+  inset: 0;
+
+  height: 100vh;
+  max-height: 100vh;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition: 1.5s ease;
+  overscroll-behavior: none;
+}
+
+.world.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.world-content {
+  position: relative;
+  z-index: 10;
+  padding: 120px 20px 80px;
+  max-width: 900px;
+  margin: auto;
+  color: white;
+}
+
+/* =========================
+   🌍 OVERLAY
+========================= */
+
+.world-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* =========================
+   ⭐ ENDING (FIXED PROPERLY)
+========================= */
+
+
+/* =========================
+   ✨ STARS
+========================= */
+
+.stars {
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(1px 1px at 10% 20%, white, transparent),
+    radial-gradient(1px 1px at 30% 80%, white, transparent),
+    radial-gradient(2px 2px at 70% 40%, white, transparent),
+    radial-gradient(1px 1px at 90% 60%, white, transparent);
+
+  opacity: 0.8;
+  animation: twinkle 6s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.6; }
+  to { opacity: 1; }
+}
+
+/* =========================
+   ✨ ANIMATIONS
+========================= */
+
+@keyframes endingFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.world-content {
+  max-width: 1200px; /* wider feel */
+  width: 100%;
+  margin: auto;
+  padding: 120px 60px 80px; /* more breathing room on sides */
+}
+.memory {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1000px;
+}
+/* =========================
+   ⭐ FINAL ENDING - CLEAN & FIXED
+========================= */
+
+
+/* Main dark gradient at the top */
+.ending::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.85) 15%,
+    rgba(0, 0, 0, 0.6) 40%,
+    rgba(0, 0, 0, 0.9) 70%,
+    #000 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Soft vignette glow */
+
+/* Stars layer */
+.stars {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1px 1px at 10% 20%, white, transparent),
+    radial-gradient(1px 1px at 30% 80%, white, transparent),
+    radial-gradient(2px 2px at 70% 40%, white, transparent),
+    radial-gradient(1px 1px at 90% 60%, white, transparent);
+  opacity: 0.75;
+  animation: twinkle 7s ease-in-out infinite alternate;
+  z-index: 3;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.55; }
+  to   { opacity: 0.85; }
+}
+
+/* Content on top of everything */
+
+/* Make sure the ending sits nicely after
+/* Better scroll control */
+html, body {
+  overflow-x: hidden;
+}
+
+.world {
+  overflow-y: auto !important;
+  height: 100vh;
+  max-height: 100vh;
+}
+
+/* Remove old conflicting ending rules */
+.ending {
+  margin-left: 0 !important;
+  width: 100% !important;
+}
+/* =========================
+   ⭐ FINAL ENDING (CLEAN CINEMATIC FIX)
+========================= */
+
+.ending {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  padding: 120px 40px;
+
+  overflow: hidden;
+  z-index: 100;
+
+  /* keep it cinematic, NOT a flat box */
+  background: transparent;
+}
+
+/* SIDE WIDE FEEL (this is what you asked for) */
+.ending-content {
+  position: relative;
+  z-index: 3;
+
+  width: 100%;
+  max-width: 1200px;
+
+  margin: 0 auto;
+}
+
+/* MAIN GRADIENT ONLY AT THE END (bottom fade) */
+.ending::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.5) 40%,
+    rgba(0, 0, 0, 0.9) 80%,
+    rgba(0, 0, 0, 1) 100%
+  );
+
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* soft cinematic glow (NOT a box) */
+.ending::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.03),
+    transparent 65%
+  );
+
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* STARS stays subtle */
+.stars {
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(1px 1px at 15% 25%, white, transparent),
+    radial-gradient(1px 1px at 35% 70%, white, transparent),
+    radial-gradient(2px 2px at 65% 40%, white, transparent),
+    radial-gradient(1px 1px at 85% 60%, white, transparent);
+
+  opacity: 0.75;
+  animation: twinkle 6s ease-in-out infinite alternate;
+
+  z-index: 2;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.5; }
+  to { opacity: 0.9; }
 }
